@@ -11,3 +11,9 @@ def books_view(request):
     return render(request, 'books.html', {'books': latest_books})
 
 
+def authors_view(request):
+    # Отримати всіх авторів та кількість книг, які вони написали
+    authors_with_books_count = Author.objects.annotate(num_books=Count('book'))
+
+    # Передати список авторів разом з кількістю книг у шаблон та відобразити його
+    return render(request, 'authors.html', {'authors': authors_with_books_count})
